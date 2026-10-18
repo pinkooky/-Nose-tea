@@ -4,6 +4,27 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Global automatic fallback if images were uploaded without the assets/ folder
+  window.addEventListener('error', (e) => {
+    if (e.target && e.target.tagName === 'IMG' && e.target.src.includes('assets/') && !e.target.dataset.fallbackRetried) {
+      e.target.dataset.fallbackRetried = 'true';
+      e.target.src = e.target.src.replace('assets/', '');
+    }
+  }, true);
+  const B = window.NOSE_TEA_IMAGES || {};
+  function updateStaticImages() {
+    if (!window.NOSE_TEA_IMAGES) return;
+    document.querySelectorAll('img').forEach(img => {
+      const src = img.getAttribute('src') || '';
+      if (src.includes('drink-peach-orange.png') && B.peachOrange) img.src = B.peachOrange;
+      else if (src.includes('drink-mango-passion.png') && B.mangoPassion) img.src = B.mangoPassion;
+      else if (src.includes('drink-blueberry-grape.png') && B.blueberryGrape) img.src = B.blueberryGrape;
+      else if (src.includes('drink-blue-lychee.png') && B.blueLychee) img.src = B.blueLychee;
+      else if (src.includes('nose-logo.svg') && B.noseLogo) img.src = B.noseLogo;
+    });
+  }
+  updateStaticImages();
+
   // ==========================================
   // 1. DATA MODELS: SIGNATURE DRINKS
   // ==========================================
@@ -17,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Delicate white peach nectar steeped with jasmine green tea, paired with hand-cut juicy peach cubes and fresh Valencia orange slices, topped with Nose Tea’s signature dense salted cream cheese cloud foam.',
       price: 150,
       calories: 210,
-      image: 'assets/drink-peach-orange.png',
+      image: B.peachOrange || 'assets/drink-peach-orange.png',
       badge: 'Bestseller Warm',
       color: '#FF7B39',
       glow: 'rgba(255, 123, 57, 0.45)',
@@ -39,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Golden Nam Dok Mai sweet mango puree harmonized with crisp highland Oolong tea and tart passion fruit pulp, layered over sun-yellow mango cubes, finished with our pillowy cheese cloud foam.',
       price: 160,
       calories: 235,
-      image: 'assets/drink-mango-passion.png',
+      image: B.mangoPassion || 'assets/drink-mango-passion.png',
       badge: 'Tropical Signature',
       color: '#FFA000',
       glow: 'rgba(255, 160, 0, 0.45)',
@@ -61,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'An icy violet masterpiece blending whole wild Canadian blueberries and deep Kyoho grape crystals with crushed ice slush, swirling into an opulent cloud foam with deep ruby berry hues.',
       price: 165,
       calories: 220,
-      image: 'assets/drink-blueberry-grape.png',
+      image: B.blueberryGrape || 'assets/drink-blueberry-grape.png',
       badge: 'Midnight Sensation',
       color: '#7B2CBF',
       glow: 'rgba(123, 44, 191, 0.45)',
@@ -83,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Crystal-clear Arctic glacier blue infusion blended with sweet white Chiang Mai lychee nectar and crushed crystalline ice, crowned by our snowy, melt-in-your-mouth cloud foam.',
       price: 155,
       calories: 195,
-      image: 'assets/drink-blue-lychee.png',
+      image: B.blueLychee || 'assets/drink-blue-lychee.png',
       badge: 'Cold Tone Star',
       color: '#00B4D8',
       glow: 'rgba(0, 180, 216, 0.45)',
@@ -360,12 +381,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const fruitImages = {};
   const fruitSources = {
-    orange: 'assets/orange-slice.svg',
-    peach: 'assets/peach-slice.svg',
-    mango: 'assets/mango-cube.svg',
-    blueberry: 'assets/blueberry.svg',
-    lychee: 'assets/lychee.svg',
-    ice: 'assets/ice-cube.svg'
+    orange: B.orangeSlice || 'assets/orange-slice.svg',
+    peach: B.peachSlice || 'assets/peach-slice.svg',
+    mango: B.mangoCube || 'assets/mango-cube.svg',
+    blueberry: B.blueberry || 'assets/blueberry.svg',
+    lychee: B.lychee || 'assets/lychee.svg',
+    ice: B.iceCube || 'assets/ice-cube.svg'
   };
 
   Object.keys(fruitSources).forEach((key) => {
@@ -905,28 +926,28 @@ document.addEventListener('DOMContentLoaded', () => {
     peach: {
       name: 'Peach Sunshine',
       color: 'linear-gradient(180deg, #FF9E64, #FF6525)',
-      fruitAsset: 'assets/peach-slice.svg',
+      fruitAsset: B.peachSlice || 'assets/peach-slice.svg',
       basePrice: 150,
       calories: 210
     },
     mango: {
       name: 'Golden Mango',
       color: 'linear-gradient(180deg, #FFC107, #FF8F00)',
-      fruitAsset: 'assets/mango-cube.svg',
+      fruitAsset: B.mangoCube || 'assets/mango-cube.svg',
       basePrice: 160,
       calories: 230
     },
     blueberry: {
       name: 'Violet Blueberry',
       color: 'linear-gradient(180deg, #8E24AA, #4A148C)',
-      fruitAsset: 'assets/blueberry.svg',
+      fruitAsset: B.blueberry || 'assets/blueberry.svg',
       basePrice: 165,
       calories: 220
     },
     lychee: {
       name: 'Glacier Blue Lychee',
       color: 'linear-gradient(180deg, #48CAE4, #0077B6)',
-      fruitAsset: 'assets/lychee.svg',
+      fruitAsset: B.lychee || 'assets/lychee.svg',
       basePrice: 155,
       calories: 195
     }
