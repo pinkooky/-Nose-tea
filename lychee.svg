@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Peeled Translucent Lychee Fruit -->
+  <defs>
+    <radialGradient id="lycheeFlesh" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#EAF6FF"/>
+      <stop offset="85%" stop-color="#D0E9FA"/>
+      <stop offset="100%" stop-color="#A5CEEB"/>
+    </radialGradient>
+    <radialGradient id="lycheeCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4B271B"/>
+      <stop offset="70%" stop-color="#2D120B"/>
+      <stop offset="100%" stop-color="#140603"/>
+    </radialGradient>
+  </defs>
+  <!-- Fruit Body -->
+  <path d="M 50 12 C 75 12, 90 28, 88 56 C 86 80, 68 90, 50 90 C 32 90, 14 80, 12 56 C 10 28, 25 12, 50 12 Z" fill="url(#lycheeFlesh)"/>
+  <!-- Subsurface seed shadow visible through translucent flesh -->
+  <ellipse cx="50" cy="52" rx="16" ry="22" fill="#583125" opacity="0.18"/>
+  <!-- Top stem indent -->
+  <ellipse cx="50" cy="18" rx="8" ry="4" fill="#B4D5EC"/>
+  <!-- Moist Gloss Highlights -->
+  <ellipse cx="38" cy="32" rx="10" ry="16" transform="rotate(-15 38 32)" fill="#FFFFFF" opacity="0.75"/>
+  <circle cx="34" cy="26" r="4" fill="#FFFFFF"/>
+  <ellipse cx="68" cy="62" rx="6" ry="10" transform="rotate(20 68 62)" fill="#FFFFFF" opacity="0.4"/>
+</svg>

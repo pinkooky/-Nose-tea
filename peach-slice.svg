@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Peach Slice -->
+  <defs>
+    <linearGradient id="peachGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFA894"/>
+      <stop offset="40%" stop-color="#FF7582"/>
+      <stop offset="80%" stop-color="#FF5364"/>
+      <stop offset="100%" stop-color="#E23048"/>
+    </linearGradient>
+    <radialGradient id="peachFlesh" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFF2CE"/>
+      <stop offset="60%" stop-color="#FFD49A"/>
+      <stop offset="100%" stop-color="#FFA97E"/>
+    </radialGradient>
+  </defs>
+  <!-- Crescent slice -->
+  <path d="M 20 80 C 10 50, 25 20, 60 15 C 80 12, 88 28, 85 45 C 80 70, 50 88, 20 80 Z" fill="url(#peachGrad)"/>
+  <path d="M 28 72 C 20 48, 32 26, 58 22 C 72 20, 78 32, 75 46 C 70 65, 48 76, 28 72 Z" fill="url(#peachFlesh)"/>
+  <!-- Pit groove -->
+  <path d="M 40 45 C 45 35, 55 40, 58 52 C 55 58, 45 55, 40 45 Z" fill="#D94C38" opacity="0.7"/>
+  <ellipse cx="60" cy="30" rx="4" ry="10" transform="rotate(25 60 30)" fill="#FFFFFF" opacity="0.45"/>
+</svg>

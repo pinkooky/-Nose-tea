@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 180" fill="none">
+  <!-- Nose illustration -->
+  <defs>
+    <filter id="noseShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#3d5a45" flood-opacity="0.3"/>
+    </filter>
+    <linearGradient id="noseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93a88a"/>
+      <stop offset="50%" stop-color="#73896b"/>
+      <stop offset="100%" stop-color="#556b4f"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Nose Bridge & Bulge -->
+  <path d="M 60 25 C 68 15, 92 15, 100 25 C 105 35, 108 55, 106 80 C 118 85, 134 100, 132 118 C 130 135, 112 142, 98 140 C 90 148, 70 148, 62 140 C 48 142, 30 135, 28 118 C 26 100, 42 85, 54 80 C 52 55, 55 35, 60 25 Z" 
+        fill="url(#noseGrad)" 
+        stroke="#3c4c37" 
+        stroke-width="3.5" 
+        stroke-linejoin="round"
+        filter="url(#noseShadow)" />
+        
+  <!-- Nostrils -->
+  <ellipse cx="56" cy="120" rx="9" ry="6" transform="rotate(-18 56 120)" fill="#232f20" stroke="#3c4c37" stroke-width="2"/>
+  <ellipse cx="104" cy="120" rx="9" ry="6" transform="rotate(18 104 120)" fill="#232f20" stroke="#3c4c37" stroke-width="2"/>
+  
+  <!-- Nose Tip Highlight & Line -->
+  <path d="M 70 112 C 75 117, 85 117, 90 112" stroke="#3c4c37" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <ellipse cx="80" cy="88" rx="14" ry="18" fill="#a4ba9c" opacity="0.35"/>
+  <circle cx="75" cy="80" r="4" fill="#ffffff" opacity="0.4"/>
+
+  <!-- "nose tea" Text Typography -->
+  <text x="80" y="172" 
+        text-anchor="middle" 
+        font-family="'Fredoka', 'Quicksand', 'Arial Rounded MT Bold', sans-serif" 
+        font-size="23" 
+        font-weight="700" 
+        letter-spacing="0.5" 
+        fill="#44583e">nose tea</text>
+</svg>
