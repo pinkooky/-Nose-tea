@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nose Tea — The Cloud Series | Warm Tone vs Cold Tone</title>
+  <meta name="description" content="Experience the revolutionary Nose Tea Cloud Series. Warm Tone vs Cold Tone artisanal fruit tea infusions topped with signature thick salted cream cheese cloud foam.">
+  <meta name="theme-color" content="#FF7B39">
+  <link rel="icon" type="image/svg+xml" href="assets/nose-logo.svg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--active-primary)',
+            secondary: 'var(--active-secondary)',
+            warm: {
+              orange: '#FF7B39',
+              amber: '#FFB347',
+              red: '#FF5252'
+            },
+            cold: {
+              blue: '#00B4D8',
+              violet: '#7B2CBF',
+              indigo: '#3A0CA3'
+            },
+            brand: '#5a7352'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            brand: ['"Fredoka"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP Animation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="tone-warm text-slate-800 antialiased selection:bg-orange-200 selection:text-orange-900">
+
+  <!-- Ambient Animated Orbs Layer -->
+  <div class="bg-ambient-layer">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+  </div>
+
+  <!-- Interactive Fizzy Particles & Fruit Canvas -->
+  <canvas id="fizzyCanvas"></canvas>
+
+  <!-- Top Sticky Navigation -->
+  <header class="navbar px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="#" class="brand-logo-wrap group">
+        <img src="assets/nose-logo.svg" alt="Nose Tea Logo" class="brand-icon-anim">
+        <div class="flex flex-col">
+          <span class="font-black text-xl tracking-tight leading-none text-slate-900 font-brand">nose tea</span>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Artisanal Cloud Bar</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+        <a href="#drinks" class="hover:text-primary transition-colors">Drinks Series</a>
+        <a href="#anatomy" class="hover:text-primary transition-colors">The Anatomy</a>
+        <a href="#diy" class="hover:text-primary transition-colors">Mix Your Cloud</a>
+        <a href="#story" class="hover:text-primary transition-colors">Craftsmanship</a>
+      </nav>
+    </div>
+
+    <!-- Right Controls: Tone Switcher & Cart -->
+    <div class="flex items-center gap-3 sm:gap-4">
+      <!-- Master Warm vs Cold Tone Switcher -->
+      <div class="tone-switch-container shadow-sm">
+        <div class="tone-switch-indicator"></div>
+        <button id="toneWarmBtn" class="tone-switch-btn active" title="Switch to Warm Tone">
+          <span>☀️ Warm</span>
+        </button>
+        <button id="toneColdBtn" class="tone-switch-btn" title="Switch to Cold Tone">
+          <span>❄️ Cold</span>
+        </button>
+      </div>
+
+      <!-- Cart Button -->
+      <button id="btnOpenCart" class="relative p-2.5 rounded-full bg-white border border-slate-200/80 hover:border-primary text-slate-800 shadow-sm transition-all hover:scale-105" title="View Order">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        <span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-[11px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-md">
+          0
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-8 py-12 md:py-20 z-10 overflow-hidden">
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Hero Copy -->
+      <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-200/80 shadow-sm backdrop-blur-md">
+          <span id="heroTonePill" class="text-xs font-bold tracking-wider text-slate-800 flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+            WARM TONE COLLECTION
+          </span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black text-slate-900 tracking-tight leading-[1.1]">
+          Sip The Clouds.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500">
+            Taste The Sensation.
+          </span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+          สัมผัสมิติใหม่ของชาผลไม้แท้สกัดเย็น จับคู่กับ <b>ชีสคลาวด์โฟมหนา 30 มม.</b> เอกลักษณ์ระดับตำนานจาก <b>Nose Tea</b> ที่แบ่งออกเป็น 2 โทนอารมณ์ความสดชื่น: <b>Warm Tone</b> สดใสชุ่มฉ่ำ และ <b>Cold Tone</b> เย็นสุดขั้ว
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+          <a href="#drinks" class="btn-primary">
+            <span>สำรวจ 4 รสชาติซิกเนเจอร์</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <a href="#diy" class="btn-secondary">
+            <span>✨ ปรุงสูตรคลาวด์ของคุณเอง (DIY)</span>
+          </a>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="pt-6 grid grid-cols-3 gap-4 border-t border-slate-200/60 max-w-lg mx-auto lg:mx-0">
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">30mm</div>
+            <div class="text-xs font-medium text-slate-500">Salted Cheese Cloud</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">100%</div>
+            <div class="text-xs font-medium text-slate-500">Real Fresh Fruits</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">12h</div>
+            <div class="text-xs font-medium text-slate-500">Cold Steeped Tea</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero 3D Perspective Cup Showcase -->
+      <div class="lg:col-span-5 flex justify-center items-center relative">
+        <div class="hero-cup-stage w-full max-w-[380px]">
+          <!-- Glow Behind Cup -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-b from-orange-400/30 to-amber-300/10 blur-3xl transform scale-125 -z-10"></div>
+          
+          <div class="hero-cup-card bg-white/70 border border-white/90 p-8 rounded-3xl shadow-2xl backdrop-blur-xl relative overflow-hidden">
+            <!-- Condensation drops on the card -->
+            <div class="absolute inset-0 pointer-events-none">
+              <span class="condensation-drop" style="width: 6px; height: 9px; top: 25%; left: 20%; animation-delay: 0.2s;"></span>
+              <span class="condensation-drop" style="width: 5px; height: 8px; top: 40%; right: 25%; animation-delay: 1.8s;"></span>
+              <span class="condensation-drop" style="width: 7px; height: 11px; top: 65%; left: 35%; animation-delay: 3.5s;"></span>
+            </div>
+
+            <div class="text-center mb-2">
+              <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Featured Signature</span>
+              <h2 id="heroDrinkTitle" class="text-2xl font-black text-slate-900">Peach Orange Cloud</h2>
+              <p id="heroDrinkTagline" class="text-xs text-slate-500 mt-1 line-clamp-1">Sun-drenched Peach Infusion crowned with Velvety Cloud Foam</p>
+            </div>
+
+            <!-- Cup Image with Condensation -->
+            <div class="hero-cup-img-wrapper">
+              <img id="heroMainImg" src="assets/drink-peach-orange.png" alt="Featured Drink" class="hero-cup-img">
+            </div>
+
+            <!-- Interactive Badge -->
+            <div class="mt-4 flex items-center justify-between bg-slate-50/80 border border-slate-100 p-3 rounded-2xl">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-xs font-bold text-slate-700">Fresh Batch Ready</span>
+              </div>
+              <span class="text-xs font-black text-orange-600 bg-orange-100 px-2.5 py-1 rounded-full">Top Seller</span>
+            <!-- Interactive Straw & Sip Feature -->
+            <div class="mt-4 p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-sm text-center">
+              <span class="text-[11px] font-bold text-slate-400 block mb-2">✨ ลองเล่นลูกเล่นดูดชิมชาสดๆ</span>
+              <div class="flex items-center justify-center gap-2">
+                <button id="btnSipDrink" class="sip-straw-btn text-xs py-2 px-4 shadow-sm">
+                  <span>🥤 กดดูดชิมชา (Take a Sip!)</span>
+                </button>
+                <button id="btnRefillDrink" class="btn-secondary text-xs py-2 px-3 hidden">
+                  <span>🔄 เติมชาเต็มแก้ว</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section: The 4 Signature Drinks Grid -->
+  <section id="drinks" class="py-20 px-4 sm:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header with Filters -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-primary">The Full Spectrum</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mt-1">
+            Choose Your Vibe
+          </h2>
+          <p class="text-sm sm:text-base text-slate-500 max-w-xl mt-2">
+            สำรวจทั้ง 4 เมนู จากสองขั้วความอร่อย: <b>Warm Tone</b> (พีชและมะม่วงเสาวรส) และ <b>Cold Tone</b> (บลูเบอร์รีและลิ้นจี่ฟ้า)
+          </p>
+        </div>
+
+        <!-- Filter Pill Buttons -->
+        <div class="flex items-center gap-2 bg-white/80 p-1.5 rounded-full border border-slate-200 shadow-sm backdrop-blur-md self-start md:self-auto">
+          <button id="toneAllBtn" class="px-4 py-2 rounded-full text-xs font-bold text-slate-700 hover:text-slate-900 transition-colors">
+            All (4)
+          </button>
+          <button onclick="document.getElementById('toneWarmBtn').click()" class="px-4 py-2 rounded-full text-xs font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 transition-colors">
+            ☀️ Warm Tone (2)
+          </button>
+          <button onclick="document.getElementById('toneColdBtn').click()" class="px-4 py-2 rounded-full text-xs font-bold text-cyan-600 bg-cyan-50 hover:bg-cyan-100 transition-colors">
+            ❄️ Cold Tone (2)
+          </button>
+        </div>
+      </div>
+
+      <!-- Drinks Grid -->
+      <div id="drinksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <!-- Rendered dynamically by app.js with 3D tilt and interaction -->
+      </div>
+
+      <!-- Quick Original Image Reference Banner -->
+      <div class="mt-16 p-6 sm:p-8 rounded-3xl bg-white/70 border border-white/80 backdrop-blur-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <img src="assets/nose-logo.svg" alt="Nose Tea" class="w-14 h-14 shrink-0">
+          <div>
+            <h3 class="font-bold text-lg text-slate-900">Original Nose Tea Visual Concept</h3>
+            <p class="text-xs text-slate-500">ต้นฉบับ 4 แก้วที่รังสรรค์ขึ้นเพื่อสร้างประสบการณ์ชิมชาที่นุ่มละมุนที่สุด</p>
+          </div>
+        </div>
+        <a href="assets/original-drinks.jpg" target="_blank" class="btn-secondary text-xs font-bold py-2 px-4 shrink-0">
+          <span>🔍 ดูรูปภาพต้นฉบับความละเอียดสูง</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section: "Deconstruct the Cloud" (Interactive 4-Layer Anatomy) -->
+  <section id="anatomy" class="py-20 px-4 sm:px-8 relative z-10 bg-slate-900/5 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-primary">Interactive Anatomy</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mt-1">
+          Deconstruct The Cloud
+        </h2>
+        <p class="text-sm sm:text-base text-slate-500 mt-2">
+          ผ่าความลับ 4 ชั้นความอร่อยของ Nose Tea ตั้งแต่ชีสคลาวด์โฟมสูตรพิเศษจนถึงผลไม้สดแท้ชิ้นโตด้านล่างสุด
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Interactive 3D Exploding Cup Graphic -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <div id="anatomyGraphic" class="cup-anatomy-graphic">
+            <!-- Layer 1: Foam -->
+            <div class="cup-layer-slice layer-foam flex items-center justify-center p-3 text-center cursor-pointer" title="Cream Cheese Cloud Foam">
+              <div>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-900 block">Layer 1</span>
+                <span class="text-xs font-bold text-slate-700">Velvety Cheese Cloud (30mm)</span>
+              </div>
+            </div>
+
+            <!-- Layer 2: Slush -->
+            <div class="cup-layer-slice layer-slush flex items-center justify-center p-3 text-center cursor-pointer" title="Sub-Zero Slush">
+              <div>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-white/90 block">Layer 2</span>
+                <span class="text-xs font-bold text-white">Diamond Crushed Slush</span>
+              </div>
+            </div>
+
+            <!-- Layer 3: Cold Brew Tea -->
+            <div class="cup-layer-slice layer-tea flex items-center justify-center p-3 text-center cursor-pointer" title="Cold Brew Tea">
+              <div>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-white/90 block">Layer 3</span>
+                <span class="text-xs font-bold text-white">12h Cold-Steeped Tea</span>
+              </div>
+            </div>
+
+            <!-- Layer 4: Fresh Fruit Chunks -->
+            <div class="cup-layer-slice layer-fruit flex items-center justify-center p-3 text-center cursor-pointer" title="Hand-Cut Fruit">
+              <div>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-white/90 block">Layer 4</span>
+                <span class="text-xs font-bold text-white">100% Fresh Hand-Cut Fruit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Explode Button Control -->
+          <div class="mt-8">
+            <button id="btnExplodeAnatomy" class="btn-primary text-sm py-2.5 px-6">
+              <span>✨ Explode 4 Layers</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Layer Description Cards -->
+        <div class="lg:col-span-7 space-y-4">
+          <!-- Item 1 -->
+          <div class="anatomy-layer-item active" data-layer="foam">
+            <div class="layer-bar-indicator"></div>
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-primary">Top Layer • 30mm</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">Velvety Cream Cheese Cloud Foam</h3>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-orange-100 text-orange-800">Signature</span>
+            </div>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              ฟองชีสหนานุ่ม 30 มม. ที่ตีขึ้นสดใหม่ทุกชั่วโมงด้วยครีมชีสเกรดพรีเมียมจากนิวซีแลนด์ นมสดฮอกไกโด และเกลือชมพูหิมาลายัน ให้รสสัมผัสหอมมันเค็มนิดๆ ตัดความหวานสดชื่นของผลไม้ได้อย่างลงตัว
+            </p>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="anatomy-layer-item" data-layer="slush">
+            <div class="layer-bar-indicator"></div>
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-primary">Sub-Zero Slush Layer</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">Diamond Crushed Fruit Slush</h3>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">-4°C Frost</span>
+            </div>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              เกล็ดน้ำแข็งบดละเอียดแบบเพชร ปั่นผสมกับเนื้อผลไม้สดแท้ที่แช่เยือกแข็งแบบฉับพลัน ช่วยกักเก็บวิตามินและความหอมสดชื่น ดื่มแล้วรู้สึกตื่นตัวสดชื่นทันที
+            </p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="anatomy-layer-item" data-layer="tea">
+            <div class="layer-bar-indicator"></div>
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-primary">Artisanal Tea Infusion</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">12h Chilled Cold-Brew Tea</h3>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Organic</span>
+            </div>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              ใบชาเขียวมะลิและชาอู่หลงยอดดอย คัดเกรดพิเศษ สกัดเย็นนาน 12 ชั่วโมงเพื่อดึงเฉพาะกลิ่นหอมดอกไม้และรสหวานธรรมชาติของใบชาออกมา โดยไร้ความฝาดขม
+            </p>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="anatomy-layer-item" data-layer="fruit">
+            <div class="layer-bar-indicator"></div>
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-primary">Bottom Foundation</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">100% Hand-Cut Fresh Fruit Chunks</h3>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800">Juicy Base</span>
+            </div>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              เนื้อผลไม้แท้หั่นเต๋าชิ้นพอดีคำ ทั้งเนื้อพีชขาวหวานฉ่ำ มะม่วงน้ำดอกไม้สุก ลิ้นจี่ทั้งลูก และบลูเบอร์รีป่า ให้คุณได้เคี้ยวเพลินในทุกๆ อึก
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section: "Mix & Match DIY Cloud" (Interactive Simulator) -->
+  <section id="diy" class="py-20 px-4 sm:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-primary">Interactive Builder</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mt-1">
+          Mix Your Own Cloud
+        </h2>
+        <p class="text-sm sm:text-base text-slate-500 mt-2">
+          ทดลองออกแบบแก้วในฝันของคุณแบบเรียลไทม์! เลือกรสชาติ ความหนาของโฟมชีส และระดับความหวานตามใจชอบ
+        </p>
+      </div>
+
+      <div class="diy-card p-6 sm:p-10 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        
+        <!-- Live Visual Cup Simulation -->
+        <div class="md:col-span-5 flex flex-col items-center justify-center">
+          <div class="diy-cup-preview">
+            <!-- Foam Layer -->
+            <div id="diyFoam" class="diy-foam-top flex items-center justify-center">
+              <span class="text-[10px] font-black tracking-wider uppercase text-amber-800/80">Cheese Cloud</span>
+            </div>
+            
+            <!-- Liquid Fill Layer -->
+            <div id="diyLiquid" class="diy-liquid-fill">
+              <!-- Floating Fruit Chunks -->
+              <div id="diyFruitChunks" class="diy-fruit-chunks-container"></div>
+            </div>
+
+            <!-- Nose Tea Logo Stamp on Cup -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <img src="assets/nose-logo.svg" alt="Logo" class="w-16 h-16 opacity-30">
+            </div>
+          </div>
+
+          <!-- Price & Calorie Tag -->
+          <div class="mt-6 flex items-center gap-6">
+            <div class="text-center">
+              <span class="text-xs text-slate-400 block font-semibold">Estimated Price</span>
+              <span id="diyPriceTag" class="text-2xl font-black text-slate-900">฿150</span>
+            </div>
+            <div class="w-px h-8 bg-slate-200"></div>
+            <div class="text-center">
+              <span class="text-xs text-slate-400 block font-semibold">Calories</span>
+              <span id="diyCalorieTag" class="text-2xl font-black text-slate-900">210 kcal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Column -->
+        <div class="md:col-span-7 space-y-6">
+          
+          <!-- Flavor Selection -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
+              1. เลือกผลไม้และเบสชา (Fruit & Tea Base)
+            </label>
+            <div class="grid grid-cols-2 gap-2 sm:gap-3">
+              <button class="diy-flavor-btn ring-2 ring-primary bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2.5 text-left text-xs font-bold text-slate-800 hover:border-primary transition-all" data-flavor="peach">
+                <img src="assets/peach-slice.svg" class="w-5 h-5">
+                <span>Peach Orange (☀️)</span>
+              </button>
+              <button class="diy-flavor-btn p-3 rounded-xl border border-slate-200 flex items-center gap-2.5 text-left text-xs font-bold text-slate-800 hover:border-primary transition-all" data-flavor="mango">
+                <img src="assets/mango-cube.svg" class="w-5 h-5">
+                <span>Mango Passion (☀️)</span>
+              </button>
+              <button class="diy-flavor-btn p-3 rounded-xl border border-slate-200 flex items-center gap-2.5 text-left text-xs font-bold text-slate-800 hover:border-primary transition-all" data-flavor="blueberry">
+                <img src="assets/blueberry.svg" class="w-5 h-5">
+                <span>Blueberry Grape (❄️)</span>
+              </button>
+              <button class="diy-flavor-btn p-3 rounded-xl border border-slate-200 flex items-center gap-2.5 text-left text-xs font-bold text-slate-800 hover:border-primary transition-all" data-flavor="lychee">
+                <img src="assets/lychee.svg" class="w-5 h-5">
+                <span>Blue Lychee (❄️)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Foam Thickness -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
+              2. ความหนาของชีสคลาวด์โฟม (Foam Thickness)
+            </label>
+            <div class="grid grid-cols-3 gap-2">
+              <button class="diy-foam-btn p-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:border-primary transition-all" data-thickness="35">
+                Lite (20mm)
+              </button>
+              <button class="diy-foam-btn active bg-slate-900 text-white p-2.5 rounded-xl border border-slate-200 text-xs font-bold transition-all" data-thickness="60">
+                Signature (30mm)
+              </button>
+              <button class="diy-foam-btn p-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:border-primary transition-all" data-thickness="90">
+                Double Cloud (+฿20)
+              </button>
+            </div>
+          </div>
+
+          <!-- Sweetness Level -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
+              3. เลือกระดับความหวาน (Sweetness Level)
+            </label>
+            <div class="flex items-center justify-between gap-2">
+              <button class="flex-1 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors">0%</button>
+              <button class="flex-1 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors">25%</button>
+              <button class="flex-1 py-2 rounded-lg bg-primary text-white text-xs font-bold shadow-sm">50% (แนะนำ)</button>
+              <button class="flex-1 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors">100%</button>
+            </div>
+          </div>
+
+          <!-- Order Customized Button -->
+          <div class="pt-2">
+            <button id="btnAddDiyToCart" class="btn-primary w-full py-3.5 text-base">
+              <span>🛍️ สั่งแก้วนี้เลย (Add Custom Cloud to Order)</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section: Craftsmanship & Sourcing -->
+  <section id="story" class="py-20 px-4 sm:px-8 relative z-10 border-t border-slate-200/50">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-bold uppercase tracking-widest text-primary">Our Philosophy</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            ทำไมต้องเป็นชาผลไม้ชีสคลาวด์ จาก Nose Tea?
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            เราเชื่อว่าการดื่มชาที่ดีไม่ใช่แค่รสชาติ แต่คือ <b>"Sensation" (ความรู้สึกสัมผัส)</b> ที่กลมกล่อม ระหว่างความเข้มข้นเค็มมันของชีสโฟม และความหอมหวานสดชื่นของชาผลไม้แท้ชั้นเลิศ
+          </p>
+
+          <div class="space-y-4 pt-2">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 font-bold text-lg">
+                🍑
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">ผลไม้สดแท้ คัดสรรสายพันธุ์ดี</h4>
+                <p class="text-xs text-slate-500 mt-0.5">ใช้พีชขาวแท้ มะม่วงน้ำดอกไม้ และลิ้นจี่สด โดยไม่ใส่สารปรุงแต่งหรือสีสังเคราะห์</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0 font-bold text-lg">
+                🧀
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">ชีสแท้นำเข้าจากนิวซีแลนด์</h4>
+                <p class="text-xs text-slate-500 mt-0.5">ตีสดแบบ Micro-whip จนเนื้อเนียนนุ่มดุจปุยเมฆ ไม่เลี่ยน และละลายในปาก</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shrink-0 font-bold text-lg">
+                ❄️
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Sub-Zero Cold Crushed Slush</h4>
+                <p class="text-xs text-slate-500 mt-0.5">เกล็ดน้ำแข็งละเอียดคงความเย็นสดชื่นได้นานโดยไม่ทำให้รสชาติของชาเจือจาง</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="relative p-4 rounded-3xl bg-white/80 border border-white shadow-xl overflow-hidden group">
+            <img src="assets/original-drinks.jpg" alt="4 Signature Drinks" class="w-full h-auto rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute bottom-8 left-8 right-8 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-md">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold text-primary">Signature Lineup</span>
+                  <p class="font-black text-slate-900 text-sm">Nose Tea Warm & Cold Cloud Collection</p>
+                </div>
+                <span class="text-xs font-semibold text-slate-500">Available Nationwide</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-4 sm:px-8 border-t border-slate-200/70 bg-white/60 relative z-10 text-slate-600">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <img src="assets/nose-logo.svg" alt="Nose Tea" class="w-10 h-10">
+        <div>
+          <span class="font-black text-lg text-slate-900 font-brand">nose tea</span>
+          <p class="text-xs text-slate-400">© 2026 Nose Tea Thailand. All rights reserved.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6 text-xs font-semibold">
+        <a href="#drinks" class="hover:text-primary transition-colors">Menu</a>
+        <a href="#anatomy" class="hover:text-primary transition-colors">Anatomy</a>
+        <a href="#diy" class="hover:text-primary transition-colors">DIY Mixer</a>
+        <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+          🚀 Ready for vercel.app
+        </span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Drink Details / Flavor Inspector Modal -->
+  <div id="drinkModalOverlay" class="modal-overlay">
+    <div class="modal-card p-6 sm:p-8">
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-primary">Flavor & Craft Profile</span>
+          <h3 id="modalDrinkName" class="text-2xl font-black text-slate-900">Peach Orange Cloud</h3>
+          <p id="modalDrinkThai" class="text-xs text-slate-400 mt-0.5">พีช ออเรนจ์ คลาวด์</p>
+        </div>
+        <button id="btnCloseModal" class="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 my-6 items-center">
+        <div class="sm:col-span-5 flex justify-center bg-slate-50 p-4 rounded-2xl">
+          <img id="modalDrinkImg" src="assets/drink-peach-orange.png" alt="Drink Preview" class="max-h-56 object-contain">
+        </div>
+        
+        <div class="sm:col-span-7 space-y-4">
+          <p id="modalDrinkDesc" class="text-sm text-slate-600 leading-relaxed"></p>
+
+          <!-- Flavor Profile Bars -->
+          <div class="space-y-2 pt-2">
+            <div>
+              <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                <span>ความหวานสดชื่น (Sweetness)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-2">
+                <div id="modalSweetMeter" class="bg-amber-400 h-2 rounded-full transition-all duration-700" style="width: 70%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                <span>ความเปรี้ยวผลไม้ (Tartness)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-2">
+                <div id="modalTartMeter" class="bg-orange-500 h-2 rounded-full transition-all duration-700" style="width: 65%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                <span>ความละมุนชีสโฟม (Creaminess)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-2">
+                <div id="modalCreamMeter" class="bg-yellow-500 h-2 rounded-full transition-all duration-700" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                <span>ระดับความเย็นสดชื่น (Chill Level)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-2">
+                <div id="modalChillMeter" class="bg-cyan-500 h-2 rounded-full transition-all duration-700" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ingredients List -->
+      <div class="border-t border-slate-100 pt-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">ส่วนประกอบหลัก (Key Ingredients)</h4>
+        <ul id="modalIngredientsList" class="grid grid-cols-1 sm:grid-cols-2 gap-1"></ul>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+        <div>
+          <span class="text-xs text-slate-400 block font-semibold">Total</span>
+          <span id="modalDrinkPrice" class="text-2xl font-black text-slate-900">฿150</span>
+        </div>
+        <button id="btnModalAddToCart" class="btn-primary py-3 px-6 text-sm">
+          <span>+ ใส่ลงแก้วของคุณ (Add to Cup)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Slide-In Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/nose-logo.svg" alt="Nose Tea" class="w-8 h-8">
+        <div>
+          <h3 class="font-extrabold text-lg text-slate-900">Your Cloud Cup</h3>
+          <p class="text-xs text-slate-400">รายการชาที่คุณเลือก</p>
+        </div>
+      </div>
+      <button id="btnCloseCart" class="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Items Scroll Area -->
+    <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-3">
+      <!-- Populated dynamically by app.js -->
+    </div>
+
+    <!-- Subtotal & Checkout -->
+    <div class="p-6 border-t border-slate-100 bg-slate-50/80">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm font-semibold text-slate-600">ราคารวม (Subtotal)</span>
+        <span id="cartSubtotal" class="text-2xl font-black text-slate-900">฿0</span>
+      </div>
+      <button id="btnCheckout" class="btn-primary w-full py-3.5 text-base shadow-lg">
+        <span>สั่งซื้อเลย (Place Order)</span>
+      </button>
+      <p class="text-center text-[11px] text-slate-400 mt-2">
+        ⚡ Fast handcrafted at Nose Tea Bar • Instant Refreshment
+      </p>
+    </div>
+  </aside>
+
+  <!-- Interactive Sound FX Toggle Floating Pill -->
+  <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle Sound FX">
+    <div class="sound-wave-bars">
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+    </div>
+    <span id="soundLabel">Sound: OFF</span>
+  </button>
+
+  <!-- Cheese Mustache Easter Egg Toast -->
+  <div id="mustacheToast" class="mustache-toast">
+    <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-xl shrink-0">
+      🧀
+    </div>
+    <div>
+      <h4 class="font-black text-sm text-slate-900">ว้าว! คุณได้รับหนวดชีสแล้ว!</h4>
+      <p class="text-xs text-slate-500">ดื่มชาชีสคลาวด์ Nose Tea แบบฟินๆ ระดับตำนาน</p>
+    </div>
+  </div>
+
+  <!-- Script Execution -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "nose-tea-cloud-animation",
+  "version": "1.0.0",
+  "description": "Nose Tea Cloud Series - Interactive JavaScript Animation Website (Warm Tone vs Cold Tone)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "deploy": "npx vercel --prod"
+  },
+  "keywords": [
+    "nose-tea",
+    "javascript-animation",
+    "gsap",
+    "web-audio-api",
+    "vercel",
+    "beverage-website"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}
